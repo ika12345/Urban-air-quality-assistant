@@ -18,15 +18,15 @@ const DEFAULT_INPUT: AdviseInput = {
 function LoadingSkeleton() {
   return (
     <div className="space-y-4 animate-pulse" aria-busy="true" aria-label="Loading air quality plan">
-      <div className="h-24 rounded-xl border border-slate-200 bg-slate-200/70" />
-      <div className="h-44 rounded-xl border border-slate-200 bg-white p-5 space-y-3">
-        <div className="h-4 w-48 rounded bg-slate-200" />
-        <div className="h-3 w-full rounded bg-slate-100" />
-        <div className="h-3 w-5/6 rounded bg-slate-100" />
+      <div className="h-28 rounded-xl border border-stone-200 bg-stone-200/70" />
+      <div className="h-44 rounded-xl border border-stone-200 bg-white p-6 space-y-3">
+        <div className="h-4 w-48 rounded bg-stone-200" />
+        <div className="h-3 w-full rounded bg-stone-100" />
+        <div className="h-3 w-5/6 rounded bg-stone-100" />
       </div>
-      <div className="h-44 rounded-xl border border-slate-200 bg-white p-5 space-y-3">
-        <div className="h-4 w-44 rounded bg-slate-200" />
-        <div className="h-3 w-full rounded bg-slate-100" />
+      <div className="h-44 rounded-xl border border-stone-200 bg-white p-6 space-y-3">
+        <div className="h-4 w-44 rounded bg-stone-200" />
+        <div className="h-3 w-full rounded bg-stone-100" />
       </div>
     </div>
   );
@@ -58,37 +58,82 @@ export default function Page() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-10">
-      <header className="mb-8 border-b border-slate-200 pb-5">
-        <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl text-balance">Urban Air Quality Assistant</h1>
-        <p className="mt-1.5 max-w-2xl text-sm text-slate-600">
-          Tailored outdoor timing, low-cost indoor air quality hacks, and low-emission swaps grounded in live US AQI.
-        </p>
+    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:inline-block focus:rounded-md focus:bg-teal-800 focus:px-3 focus:py-2 focus:text-xs focus:font-semibold focus:text-white">
+        Skip to content
+      </a>
+
+      <header className="mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-stone-200 pb-5">
+        <span className="font-display text-lg font-bold tracking-tight text-stone-950 whitespace-nowrap shrink-0">
+          Urban Air Quality Assistant
+        </span>
+        <nav aria-label="Plan sections" className="hidden sm:flex items-center gap-6 text-sm font-medium text-stone-600">
+          <a href="#routine" className="hover:text-stone-950 hover:underline underline-offset-4 whitespace-nowrap shrink-0">Outdoor Routine</a>
+          <a href="#indoor" className="hover:text-stone-950 hover:underline underline-offset-4 whitespace-nowrap shrink-0">Indoor Hacks</a>
+          <a href="#swaps" className="hover:text-stone-950 hover:underline underline-offset-4 whitespace-nowrap shrink-0">Low-Emission Swaps</a>
+        </nav>
+        <button type="button" onClick={handleSubmit} disabled={loading} className="min-h-[40px] rounded-lg bg-teal-800 px-4 py-2 text-xs font-semibold text-white transition-all duration-150 hover:bg-teal-900 active:translate-y-px disabled:opacity-60 whitespace-nowrap shrink-0">
+          {loading ? "Checking..." : "Check Live AQI"}
+        </button>
       </header>
-      <main className="grid grid-cols-1 gap-6 lg:grid-cols-[360px_1fr] lg:items-start">
+
+      <section data-enter className="mb-8 max-w-3xl">
+        <h1 className="text-3xl font-bold tracking-tight text-stone-950 sm:text-4xl text-balance">
+          Daily air quality guidance tailored to how you commute and live.
+        </h1>
+        <p className="mt-2.5 text-base leading-relaxed text-stone-600">
+          Live US AQI and PM2.5 readings from Open-Meteo paired with your home ventilation, cooking fuel, and sensitivity profile.
+        </p>
+      </section>
+
+      <main id="main-content" className="grid grid-cols-1 gap-6 lg:grid-cols-[370px_1fr] lg:items-start">
         <ProfileForm value={input} loading={loading} onChange={setInput} onSubmit={handleSubmit} />
+
         <div className="space-y-4">
           {loading && <LoadingSkeleton />}
+
           {!loading && error && (
-            <div role="alert" className="rounded-xl border border-rose-200 bg-rose-50 p-5 text-rose-900">
+            <div role="alert" className="rounded-xl border border-rose-200 bg-rose-50 p-5 text-rose-950">
               <h2 className="text-sm font-semibold">Could not generate plan</h2>
-              <p className="mt-1 text-sm">{error}</p>
-              <button type="button" onClick={handleSubmit} className="mt-3 rounded-lg bg-rose-800 px-3.5 py-2 text-xs font-semibold text-white hover:bg-rose-900">Retry</button>
+              <p className="mt-1 text-sm leading-relaxed">{error}</p>
+              <button type="button" onClick={handleSubmit} className="mt-3 min-h-[40px] rounded-lg bg-rose-800 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-rose-900">
+                Retry
+              </button>
             </div>
           )}
+
           {!loading && !error && !result && (
-            <div className="rounded-xl border border-slate-200 bg-white p-6 text-slate-600">
-              <h2 className="text-base font-semibold text-slate-900">Ready when you are</h2>
-              <p className="mt-1.5 text-sm leading-relaxed">
-                Click <span className="font-medium text-slate-900">Get Air Quality Plan</span> to fetch live AQI for{" "}
-                <span className="font-medium text-slate-900">{input.city || "your location"}</span> and generate tailored guidance.
-              </p>
+            <div className="rounded-xl border border-stone-200 bg-white p-6 space-y-5">
+              <div>
+                <h2 className="text-base font-semibold text-stone-950">What your plan includes</h2>
+                <p className="mt-1 text-sm text-stone-600">
+                  Pre-loaded for <span className="font-medium text-stone-900">{input.city || "your location"}</span> so you can run a live check in one click.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 border-t border-stone-100 pt-4">
+                <div>
+                  <p className="font-mono text-xs text-stone-400">01</p>
+                  <p className="mt-1 text-sm font-semibold text-stone-900">Outdoor timing</p>
+                  <p className="mt-0.5 text-xs leading-relaxed text-stone-600">Commute windows and mask fit matched to US AQI band.</p>
+                </div>
+                <div>
+                  <p className="font-mono text-xs text-stone-400">02</p>
+                  <p className="mt-1 text-sm font-semibold text-stone-900">Indoor hacks</p>
+                  <p className="mt-0.5 text-xs leading-relaxed text-stone-600">Free and low-cost airflow steps for your cooking fuel.</p>
+                </div>
+                <div>
+                  <p className="font-mono text-xs text-stone-400">03</p>
+                  <p className="mt-1 text-sm font-semibold text-stone-900">Clear why</p>
+                  <p className="mt-0.5 text-xs leading-relaxed text-stone-600">Every action explains its exposure benefit directly.</p>
+                </div>
+              </div>
             </div>
           )}
+
           {!loading && !error && result && (
-            <div className="space-y-4">
+            <div data-enter className="space-y-4">
               <AqiBadge reading={result.reading} />
-              <p className="rounded-xl border border-slate-200 bg-white p-4 text-sm leading-relaxed text-slate-700">{result.plan.summary}</p>
+              <p className="rounded-xl border border-stone-200 bg-white p-5 text-sm leading-relaxed text-stone-700">{result.plan.summary}</p>
               <RoutineCard items={result.plan.outdoorRoutine} />
               <IndoorHacksCard items={result.plan.indoorHacks} />
               <ImpactCard swaps={result.plan.lowEmissionSwaps} healthNote={result.plan.healthNote} disclaimer={result.plan.disclaimer} />
