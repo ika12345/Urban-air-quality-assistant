@@ -1,7 +1,7 @@
 import { getAqiReading } from "../../../lib/aqi.ts";
 import { generate } from "../../../lib/llm.ts";
 import { buildUserPrompt, SYSTEM_PROMPT } from "../../../lib/prompts.ts";
-import { AdviseApiResponse, AdviseInputSchema, AdviseOutput, AdviseOutputSchema } from "../../../lib/schema.ts";
+import { AdviseInputSchema, AdviseOutputSchema, type AdviseApiResponse, type AdviseOutput } from "../../../lib/schema.ts";
 
 function validatePlan(raw: string): { ok: true; data: AdviseOutput } | { ok: false; error: string } {
   try {

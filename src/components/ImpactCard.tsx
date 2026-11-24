@@ -1,4 +1,4 @@
-import { AdviseOutput } from "../lib/schema";
+import type { AdviseOutput } from "../lib/schema";
 
 interface ImpactCardProps {
   swaps: AdviseOutput["lowEmissionSwaps"];

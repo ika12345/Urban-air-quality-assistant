@@ -4,7 +4,7 @@ import { ImpactCard } from "../components/ImpactCard";
 import { IndoorHacksCard } from "../components/IndoorHacksCard";
 import { ProfileForm } from "../components/ProfileForm";
 import { RoutineCard } from "../components/RoutineCard";
-import { AdviseApiResponse, AdviseInput } from "../lib/schema";
+import type { AdviseApiResponse, AdviseInput } from "../lib/schema";
 
 const DEFAULT_INPUT: AdviseInput = {
   city: "New Delhi",

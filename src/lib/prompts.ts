@@ -1,4 +1,4 @@
-import { AdviseInput, AqiReading } from "./schema.ts";
+import type { AdviseInput, AqiReading } from "./schema.ts";
 
 export const SYSTEM_PROMPT = `You are an Urban Air Quality Assistant. Given live or manual AQI facts and a resident's lifestyle profile, produce practical, personalized air-quality guidance.
 

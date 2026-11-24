@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import dotenv from "dotenv";
 import { handleAdvise } from "../src/app/api/advise/route.ts";
 import { classifyAqiBand, getAqiReading } from "../src/lib/aqi.ts";
-import { AdviseInput, AdviseInputSchema, AdviseOutputSchema } from "../src/lib/schema.ts";
+import { AdviseInputSchema, AdviseOutputSchema, type AdviseInput } from "../src/lib/schema.ts";
 
 dotenv.config({ path: ".env.local" });
 dotenv.config();

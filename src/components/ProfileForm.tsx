@@ -1,4 +1,4 @@
-import { AdviseInput } from "../lib/schema";
+import type { AdviseInput } from "../lib/schema";
 
 interface ProfileFormProps {
   value: AdviseInput;

@@ -10,6 +10,10 @@ async function startServer() {
   const app = express();
   app.use(express.json());
 
+  app.get("/api/health", (_req, res) => {
+    res.json({ status: "ok" });
+  });
+
   app.post("/api/advise", async (req, res) => {
     const result = await handleAdvise(req.body);
     res.status(result.status).json(result.payload);
@@ -30,8 +34,9 @@ async function startServer() {
     });
   }
 
-  app.listen(3000, "0.0.0.0", () => {
-    console.log("Server listening on http://0.0.0.0:3000");
+  const port = Number(process.env.PORT) || 3000;
+  app.listen(port, "0.0.0.0", () => {
+    console.log(`Server listening on http://0.0.0.0:${port}`);
   });
 }
 

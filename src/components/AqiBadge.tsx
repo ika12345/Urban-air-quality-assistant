@@ -1,4 +1,4 @@
-import { AqiBand, AqiReading } from "../lib/schema";
+import type { AqiBand, AqiReading } from "../lib/schema";
 
 const BAND_STYLES: Record<AqiBand, string> = {
   Good: "bg-emerald-50 text-emerald-900 border-emerald-200",

@@ -1,4 +1,4 @@
-import { AqiBand, AqiReading } from "./schema.ts";
+import type { AqiBand, AqiReading } from "./schema.ts";
 
 interface GeoResponse {
   results?: Array<{ name: string; country?: string; latitude: number; longitude: number }>;
